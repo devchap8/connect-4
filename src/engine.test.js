@@ -47,3 +47,24 @@ test("invalid piece placements return false", () => {
     expect(game.placePiece(-1)).toBeNull();
     expect(game.placePiece(7)).toBeNull();
 });
+
+test("vertical win", () => {
+    expect(game.checkWin(5, 0)).toBe(false);
+    game.placePiece(0); // row 5 col 0
+    expect(game.checkWin(5, 0)).toBe(false);
+    game.placePiece(0); // row 4 col 0
+    game.placePiece(0); // row 3 col 0
+    expect(game.checkWin(5, 0)).toBe(false);
+    expect(game.checkWin(3, 0)).toBe(false);
+    game.placePiece(0); // row 2 col 0 -- win
+    expect(game.checkWin(5, 0)).toBe(true);
+    expect(game.checkWin(2, 0)).toBe(true);
+    expect(game.checkWin(3, 0)).toBe(true);
+    expect(game.checkWin(1, 0)).toBe(false);
+    expect(game.checkWin(0, 0)).toBe(false);
+    expect(game.checkWin(5, 1)).toBe(false);
+    game.placePiece(0); // row 1 col 0
+    game.placePiece(0); // row 0 col 0
+    // checking that the second while loop doesnt underflow into accessing board[-1]
+    expect(game.checkWin(0, 0)).toBe(true);
+})

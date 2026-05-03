@@ -5,11 +5,18 @@ class Game {
     #p1;
     #p2;
     #currPlayer;
+    #winOffests;
     constructor(p1, p2) {
         this.#p1 = p1;
         this.#p2 = p2;
         this.#board = new models.Gameboard();
         this.#currPlayer = this.#p1;
+        this.#winOffests = {
+            vert: {row: 1, col: 0},
+            horiz: {row: 0, col: 1},
+            diagFront: {row: 1, col: 1},
+            diagBack: {row: 1, col: -1}
+        };
     }
 
     getBoard = () => this.#board.board.map(row => [...row]);
@@ -32,11 +39,47 @@ class Game {
         }
         return null;
     }
+
+    checkWin = (row, col) => {
+        const piece = this.#board.board[row][col];
+        return (this.#checkWinVertical(row, col, piece));
+    }
+    #checkWinVertical = (row, col, piece) => {
+        if(piece === ".") return false;
+        let count = -1; // we increment count automatically twice, so its effectively 1
+        let checkRow = row;
+        let checkCol = col;
+        while(checkRow <= 5 && checkCol <= 6 && checkRow >= 0 && checkCol >= 0) {
+            if(this.#board.board[checkRow][checkCol] === piece) {
+                count++;
+                checkRow += this.#winOffests.vert.row;
+                checkCol += this.#winOffests.vert.col;
+            } else {
+                break;
+            }
+        }
+        checkRow = row;
+        checkCol = col;
+        while(checkRow <= 5 && checkCol <= 6 && checkRow >= 0 && checkCol >= 0) {
+            if(this.#board.board[checkRow][checkCol] === piece) {
+                count++;
+                checkRow -= this.#winOffests.vert.row;
+                checkCol -= this.#winOffests.vert.col;
+            } else {
+                break;
+            }
+        } 
+        return count >= 4;
+    }
+
 }
 
-// const player1 = new models.Player("X");
-// const player2 = new models.Player("O");
-// const game = new Game(player1, player2);
+const player1 = new models.Player("X");
+const player2 = new models.Player("O");
+const game = new Game(player1, player2);
+game.placePiece(0);
+game.placePiece(0);
+game.checkWin(5, 0);
 
 const engine = { Game };
 export { engine };
