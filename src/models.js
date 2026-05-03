@@ -16,6 +16,10 @@ class Gameboard {
         return board;
     }
 
+    update = (row, col, piece) => {
+        this.board[row][col] = piece;
+    }
+
 }
 
 class Player {
@@ -30,9 +34,10 @@ class Player {
 }
 
 class CompPlayer extends Player {
+    #isRealPlayer;
     constructor(piece) {
         super(piece);
-        this.isRealPlayer = false;
+        this.#isRealPlayer = false;
     }
 
     getMoveColumn = () => {

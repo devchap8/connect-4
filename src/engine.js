@@ -15,20 +15,20 @@ class Game {
     getP2 = () => this.#p2;
 
     placePiece = (col, player) => {
-        if(col < 0 || col > 6) return false;
+        if(col < 0 || col > 6) return null;
         for(let i = 5; i >= 0; i--) {
             if(this.#board.board[i][col] === ".") {
-                this.#board.board[i][col] = player.getPiece();
-                return true;
+                this.#board.update(i, col, player.getPiece());
+                return {row: i, col: col};
             }
         }
-        return false;
+        return null;
     }
 }
 
-// const player1 = new models.Player("X");
-// const player2 = new models.Player("O");
-// const game = new Game(player1, player2);
+const player1 = new models.Player("X");
+const player2 = new models.Player("O");
+const game = new Game(player1, player2);
 
 const engine = { Game };
 export { engine };
