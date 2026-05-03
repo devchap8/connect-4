@@ -25,19 +25,19 @@ class Gameboard {
 class Player {
     #piece;
     #isRealPlayer;
-    constructor(piece) {
+    constructor(piece, isReal = true) {
         this.#piece = piece;
-        this.#isRealPlayer = true;
+        this.#isRealPlayer = isReal;
     }
     getPiece = () => this.#piece;
     getIsRealPlayer = () => this.#isRealPlayer;
+
+    clone = () => new Player(this.#piece, this.#isRealPlayer);
 }
 
 class CompPlayer extends Player {
-    #isRealPlayer;
     constructor(piece) {
-        super(piece);
-        this.#isRealPlayer = false;
+        super(piece, false);
     }
 
     getMoveColumn = () => {

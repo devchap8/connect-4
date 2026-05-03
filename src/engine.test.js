@@ -10,19 +10,20 @@ beforeEach(() => {
 });
 
 test("piece places on board" , () => {
-    expect(game.placePiece(0, player1)).toEqual({row: 5, col: 0});
+    expect(game.placePiece(0)).toEqual({row: 5, col: 0, piece: "X"});
     expect(game.getBoard()[5][0]).toEqual("X");
     expect(game.getBoard()[0][0]).toEqual(".");
     expect(game.getBoard()[4][0]).toEqual(".");
 
-    expect(game.placePiece(0, player2)).toEqual({row: 4, col: 0});
+    game.switchCurrPlayer();
+    expect(game.placePiece(0)).toEqual({row: 4, col: 0, piece: "O"});
     expect(game.getBoard()[5][0]).toEqual("X");
     expect(game.getBoard()[4][0]).toEqual("O");
     expect(game.getBoard()[0][0]).toEqual(".");
     expect(game.getBoard()[3][0]).toEqual(".");
     expect(game.getBoard()[5][1]).toEqual(".");
 
-    expect(game.placePiece(1, player2)).toEqual({row: 5, col: 1});
+    expect(game.placePiece(1)).toEqual({row: 5, col: 1, piece: "O"});
     expect(game.getBoard()[5][0]).toEqual("X");
     expect(game.getBoard()[4][0]).toEqual("O");
     expect(game.getBoard()[5][1]).toEqual("O");
@@ -33,15 +34,16 @@ test("piece places on board" , () => {
 
 test("invalid piece placements return false", () => {
     // fill the 0 column
-    expect(game.placePiece(0, player2)).toEqual({row: 5, col: 0});
-    expect(game.placePiece(0, player2)).toEqual({row: 4, col: 0});
-    expect(game.placePiece(0, player2)).toEqual({row: 3, col: 0});
-    expect(game.placePiece(0, player2)).toEqual({row: 2, col: 0});
-    expect(game.placePiece(0, player2)).toEqual({row: 1, col: 0});
-    expect(game.placePiece(0, player2)).toEqual({row: 0, col: 0});
+    game.switchCurrPlayer();
+    expect(game.placePiece(0)).toEqual({row: 5, col: 0, piece: "O"});
+    expect(game.placePiece(0)).toEqual({row: 4, col: 0, piece: "O"});
+    expect(game.placePiece(0)).toEqual({row: 3, col: 0, piece: "O"});
+    expect(game.placePiece(0)).toEqual({row: 2, col: 0, piece: "O"});
+    expect(game.placePiece(0)).toEqual({row: 1, col: 0, piece: "O"});
+    expect(game.placePiece(0)).toEqual({row: 0, col: 0, piece: "O"});
     expect(game.getBoard()[0][0]).toEqual("O");
 
-    expect(game.placePiece(0, player2)).toBeNull();
-    expect(game.placePiece(-1, player2)).toBeNull();
-    expect(game.placePiece(7, player2)).toBeNull();
+    expect(game.placePiece(0)).toBeNull();
+    expect(game.placePiece(-1)).toBeNull();
+    expect(game.placePiece(7)).toBeNull();
 });
