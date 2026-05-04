@@ -1,28 +1,39 @@
 import "./style.css";
 import { views } from "./views.js";
+import { models } from "./models.js";
+import { engine } from "./engine.js";
+
+const gameContainer = document.querySelector(".game-container");
+
+class GameController {
+    #p1
+    #p2
+    #game
+    constructor() {
+        // this.#p1 = null;
+        // this.#p2 = null;
+        // this.#game = null;
+        this.#p1 = new models.Player("X");
+        this.#p2 = new models.Player("O");
+        this.#game = new engine.Game(this.#p1, this.#p2);
+    }
+
+    setupEventListeners = () => {
+        gameContainer.addEventListener("click", this.handleClick);
+    }
+
+    handleClick = (event) => {
+        // get the column clicked
+        // place the piece in that column in data and get the info from engine
+        // based off the info, change the dom in views
+        if(!event.target.classList.contains("slot")) return;
+        const column = event.target.dataset.col;
+        const moveInfo = this.#game.placePiece(column);
+        console.log(moveInfo);
+        console.log(this.#game.getBoard());
+    }
+}
 
 views.setupBoard();
-
-/*
-Board Class
-    Stores 6x7 2d array for board data
-
-Player Class
-    Stores player info
-    1p, 2p, piece type (for checking board later)
-    ai class that extends player? 
-        has function to get a move coordinate based on certain factors
-
-Game Class
-    Stores game state (players, board, turn) and functions like getting coords for a move, checking if a 
-        move is legal,  or checking for a win
-    Functions take input and return output. 
-    
-
-GameController Class
-    Stores the game instance and functions that string game / player / dom functions together
-    Initializes game in the constructor
-    Functions dont parse data or change the dom, it takes input from event listeners or other functions and passes the
-        output to other functions to change the game state
-
-*/
+const controller = new GameController();
+controller.setupEventListeners();
