@@ -112,13 +112,12 @@ test("diagonal forward win", () => {
     expect(game.checkWin(1, 4)).toBe(true);
     expect(game.checkWin(4, 1)).toBe(true);
     expect(game.checkWin(2, 3)).toBe(true);
-
 });
 
 test("diagonal backward win", () => {
     // same staircase as diagonal forwards but reversed
     for(let i = 5; i > 0; i--) {
-        for(let j = 0; j < i; j++) {
+        for(let j = 0; j < 6 - i; j++) {
             game.placePiece(i);
         }
     }

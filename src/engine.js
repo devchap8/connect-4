@@ -5,17 +5,17 @@ class Game {
     #p1;
     #p2;
     #currPlayer;
-    #winOffests;
+    #winOffsets;
     constructor(p1, p2) {
         this.#p1 = p1;
         this.#p2 = p2;
         this.#board = new models.Gameboard();
         this.#currPlayer = this.#p1;
-        this.#winOffests = {
+        this.#winOffsets = {
             vert: {row: 1, col: 0},
             horiz: {row: 0, col: 1},
-            diagFront: {row: 1, col: 1},
-            diagBack: {row: 1, col: -1}
+            diagFront: {row: 1, col: -1},
+            diagBack: {row: 1, col: 1}
         };
     }
 
@@ -42,9 +42,9 @@ class Game {
 
     checkWin = (row, col) => {
         const piece = this.#board.board[row][col];
-        return (this.#checkWinVertical(row, col, piece));
+        return Object.values(this.#winOffsets).some((offset) => this.#checkWinCondition(row, col, piece, offset))
     }
-    #checkWinVertical = (row, col, piece) => {
+    #checkWinCondition = (row, col, piece, offset) => {
         if(piece === ".") return false;
         let count = -1; // we increment count automatically twice, so its effectively 1
         let checkRow = row;
@@ -52,19 +52,20 @@ class Game {
         while(checkRow <= 5 && checkCol <= 6 && checkRow >= 0 && checkCol >= 0) {
             if(this.#board.board[checkRow][checkCol] === piece) {
                 count++;
-                checkRow += this.#winOffests.vert.row;
-                checkCol += this.#winOffests.vert.col;
+                checkRow += offset.row;
+                checkCol += offset.col;
             } else {
                 break;
             }
         }
+        // reset and check in the other direction for connections
         checkRow = row;
         checkCol = col;
         while(checkRow <= 5 && checkCol <= 6 && checkRow >= 0 && checkCol >= 0) {
             if(this.#board.board[checkRow][checkCol] === piece) {
                 count++;
-                checkRow -= this.#winOffests.vert.row;
-                checkCol -= this.#winOffests.vert.col;
+                checkRow -= offset.row;
+                checkCol -= offset.col;
             } else {
                 break;
             }
