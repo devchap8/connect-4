@@ -1,4 +1,7 @@
 import "./style.css";
+import { views } from "./views.js";
+
+views.setupBoard();
 
 /*
 Board Class

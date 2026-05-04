@@ -1,0 +1,67 @@
+:root {
+    --board-color: #274ca3;
+    --board-border-color: #1a367a;
+    --hole-bg: #111; 
+    --screen-bg: #333;
+    --slot-size: 80px;
+    --slot-gap: 8px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--screen-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.game-container {
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+}
+
+.board-back {
+    position: absolute;
+    inset: 0; 
+    background-color: var(--hole-bg);
+    border-radius: 10px;
+    z-index: 1;
+}
+
+.piece-container {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.board {
+    position: relative;
+    z-index: 3; 
+    display: grid;
+    grid-template-columns: repeat(7, var(--slot-size));
+    grid-template-rows: repeat(6, var(--slot-size));
+    gap: var(--slot-gap);
+    padding: var(--slot-gap);
+    background-color: transparent; 
+    border: 6px solid var(--board-border-color);
+    border-radius: 10px;
+}
+
+.slot {
+    width: var(--slot-size);
+    height: var(--slot-size);
+    background: radial-gradient(
+        circle at center, 
+        transparent 65%, 
+        var(--board-color) 66%
+    );
+    box-shadow: 0 0 0 calc(var(--slot-gap) / 2) var(--board-color);
+}
