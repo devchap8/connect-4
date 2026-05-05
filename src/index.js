@@ -16,6 +16,8 @@ class GameController {
         this.#p1 = new models.Player("X");
         this.#p2 = new models.Player("O");
         this.#game = new engine.Game(this.#p1, this.#p2);
+        // in final build game and players will be null and declared depending on if the
+        // user presses 1p game or 2p game on start screen
     }
 
     setupEventListeners = () => {

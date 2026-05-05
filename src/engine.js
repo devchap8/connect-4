@@ -75,12 +75,5 @@ class Game {
 
 }
 
-// const player1 = new models.Player("X");
-// const player2 = new models.Player("O");
-// const game = new Game(player1, player2);
-// game.placePiece(0);
-// game.placePiece(0);
-// game.checkWin(5, 0);
-
 const engine = { Game };
 export { engine };
