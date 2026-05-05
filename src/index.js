@@ -23,14 +23,17 @@ class GameController {
     }
 
     handleClick = (event) => {
-        // get the column clicked
-        // place the piece in that column in data and get the info from engine
-        // based off the info, change the dom in views
         if(!event.target.classList.contains("slot")) return;
         const column = event.target.dataset.col;
+        this.makeMove(column);
+    }
+
+    makeMove = (column) => {
+        // ai will also use this function after getting its column
         const moveInfo = this.#game.placePiece(column);
-        console.log(moveInfo);
-        console.log(this.#game.getBoard());
+        if(!moveInfo) return;
+        const piece = views.makePiece();
+        views.placePieceInDom(piece, moveInfo.col, moveInfo.row);
     }
 }
 

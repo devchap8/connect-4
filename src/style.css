@@ -35,8 +35,8 @@ body {
     width: var(--slot-size);
     background-color: red;
     border-radius: 50%;
-    position: absolute;
-    top: -20%;
+    /* position: absolute;
+    top: -20%; */
 }
 
 .board-back {
@@ -45,31 +45,39 @@ body {
     background-color: var(--hole-bg);
     border-radius: 10px;
     z-index: 1;
+    padding: 6px;
 }
 
 .piece-container {
-    position: absolute;
+    /* position: absolute; */
+    position: relative;
     inset: 0;
     z-index: 2;
     pointer-events: none;
 }
 
-.board {
-    position: relative;
-    z-index: 3; 
+.board, .piece-container {
     display: grid;
     grid-template-columns: repeat(7, var(--slot-size));
     grid-template-rows: repeat(6, var(--slot-size));
     gap: var(--slot-gap);
     padding: var(--slot-gap);
+}
+
+.board {
+    position: relative;
+    z-index: 3; 
     background-color: transparent; 
     border: 6px solid var(--board-border-color);
     border-radius: 10px;
 }
 
-.slot {
+.slot, .piece-slot {
     width: var(--slot-size);
     height: var(--slot-size);
+}
+
+.slot {
     background: radial-gradient(
         circle at center, 
         transparent 65%, 
