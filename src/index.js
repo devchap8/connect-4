@@ -4,6 +4,8 @@ import { models } from "./models.js";
 import { engine } from "./engine.js";
 
 const gameContainer = document.querySelector(".game-container");
+const singleplayerButton = document.querySelector(".singleplayer-button");
+const twoplayerButton = document.querySelector(".twoplayer-button");
 
 class GameController {
     #p1
@@ -22,6 +24,18 @@ class GameController {
 
     setupEventListeners = () => {
         gameContainer.addEventListener("click", this.handleClick);
+        singleplayerButton.addEventListener("click", () => this.startGame(true));
+        twoplayerButton.addEventListener("click", () => this.startGame(false));
+    }
+
+    startGame = (isSingleplayer) => {
+        console.log("start game")
+        // make p1
+        // if isSingleplayer make p2 a bot, else make p2 a player
+        // make the game with the players
+        // change to the game screen
+
+        views.changeScreen("game-screen");
     }
 
     handleClick = (event) => {

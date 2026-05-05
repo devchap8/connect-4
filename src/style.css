@@ -19,11 +19,6 @@ body {
     height: 100vh;
     width: 100%;
     position: relative;
-}
-
-main {
-    width: 100%;
-    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -32,18 +27,22 @@ main {
 /* Screen States */
 
 .screen {
-    display: none;
+    visibility: hidden;
     opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .active-screen {
-    display: block;
+    visibility: visible;
     opacity: 1;
 }
 
 /* Start Screen */
 
-.start-screen {
+#start-screen {
     background-color: var(--menu-bg);
     height: 500px;
     width: 600px;
@@ -54,7 +53,7 @@ main {
     border-radius: 20px;
 }
 
-.start-screen > h1 {
+#start-screen > h1 {
     font-size: 4rem;
     font-weight: 900;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -79,8 +78,7 @@ main {
 
 /* GameBoard */
 
-.game-container {
-    position: relative;
+#game-screen {
     width: fit-content;
     height: fit-content;
 }

@@ -1,5 +1,8 @@
 const board = document.querySelector(".board");
 const pieceContainer = document.querySelector(".piece-container");
+const startScreen = document.querySelector("#start-screen");
+const gameScreen = document.querySelector("#game-screen");
+const screenList = [startScreen, gameScreen];
 
 const setupBoard = () => {
     board.innerHTML = "";
@@ -34,5 +37,12 @@ const placePieceInDom = (piece, col, row) => {
     pieceSlot.appendChild(piece);
 }
 
-const views = {setupBoard, makePiece, placePieceInDom};
+const changeScreen = (screenID) => {
+    screenList.forEach((screen => {
+        if(screen.id === screenID && !screen.classList.contains("active-screen")) screen.classList.add("active-screen");
+        else if(screen.classList.contains("active-screen")) screen.classList.remove("active-screen")
+    }));
+}
+
+const views = {setupBoard, makePiece, placePieceInDom, changeScreen};
 export {views};

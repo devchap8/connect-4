@@ -7,21 +7,19 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <main>
-        <div class="start-screen screen active-screen">
-            <h1>CONNECT 4</h1>
-            <div class="start-buttons">
-                <button class="1p-button">Singleplayer</button>
-                <button class="2p-button">Two Player</button>
+    <div class="screen active-screen" id="start-screen">
+        <h1>CONNECT 4</h1>
+        <div class="start-buttons">
+            <button class="singleplayer-button">Singleplayer</button>
+            <button class="twoplayer-button">Two Player</button>
+        </div>
+    </div>
+    <div class="screen game-container" id="game-screen">
+        <div class="board-back">
+            <div class="piece-container" id="piece-container">
             </div>
         </div>
-        <div class="game-container screen">
-            <div class="board-back">
-                <div class="piece-container" id="piece-container">
-                </div>
-            </div>
-            <div class="board"></div>
-        </div>
-    </main>
+        <div class="board"></div>
+    </div>
 </body>
 </html>
