@@ -40,6 +40,10 @@ body {
     opacity: 1;
 }
 
+.inactive {
+    pointer-events: none;
+}
+
 /* Start Screen */
 
 #start-screen {

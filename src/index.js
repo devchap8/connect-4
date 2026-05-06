@@ -51,11 +51,13 @@ class GameController {
         }
     }
 
-    aiTurn = () => {
+    aiTurn = async () => {
         const randCol = this.#game.getRandomColumn();
-        setTimeout(() => {
+        views.toggleBoardActive();
+        await new Promise(() => setTimeout(() => {
             this.makeMove(randCol);
-        }, 1000);
+            views.toggleBoardActive();
+        }, 1000));
     }
 
     gameWon = () => {

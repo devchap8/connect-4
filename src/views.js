@@ -44,5 +44,10 @@ const changeScreen = (screenID) => {
     }));
 }
 
-const views = {setupBoard, makePiece, placePieceInDom, changeScreen};
+const toggleBoardActive = () => {
+    gameScreen.classList.contains("inactive") ? 
+        gameScreen.classList.remove("inactive") : gameScreen.classList.add("inactive");
+}
+
+const views = {setupBoard, makePiece, placePieceInDom, changeScreen, toggleBoardActive};
 export {views};
