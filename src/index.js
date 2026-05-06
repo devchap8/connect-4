@@ -47,8 +47,15 @@ class GameController {
         this.#game.switchCurrPlayer();
         console.log(this.#game.getCurrPlayer());
         if(!this.#game.getCurrPlayer().getIsRealPlayer()) {
-            
+            this.aiTurn();
         }
+    }
+
+    aiTurn = () => {
+        const randCol = this.#game.getRandomColumn();
+        setTimeout(() => {
+            this.makeMove(randCol);
+        }, 1000);
     }
 
     gameWon = () => {

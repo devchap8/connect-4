@@ -29,6 +29,15 @@ class Game {
         else this.#currPlayer = this.#p1;
     }
 
+    getRandomColumn = () => {
+        let cols = [0, 1, 2, 3, 4, 5, 6];
+        while(cols.length > 0) {
+            const randIndex = Math.floor(Math.random() * cols.length);
+            if(this.isValidMove(cols[randIndex])) return cols[randIndex];
+            cols.splice(randIndex, 1);
+        }
+    }
+
     isValidMove = (col) => {
         if(col < 0 || col > 6) return null;
         return this.#board.board[0][col] === ".";
