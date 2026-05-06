@@ -84,14 +84,10 @@ body {
 }
 
 .piece {
-    /* height: calc(var(--slot-size) - var(--slot-gap));
-    width: calc(var(--slot-size) - var(--slot-gap)); */
     height: var(--slot-size);
     width: var(--slot-size);
     background-color: red;
     border-radius: 50%;
-    /* position: absolute;
-    top: -20%; */
 }
 
 .board-back {

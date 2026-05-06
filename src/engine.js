@@ -34,7 +34,7 @@ class Game {
         for(let i = 5; i >= 0; i--) {
             if(this.#board.board[i][col] === ".") {
                 this.#board.update(i, col, this.#currPlayer.getPiece());
-                return {row: i, col: col, piece: this.#currPlayer.getPiece()};
+                return {row: +i, col: +col, piece: this.#currPlayer.getPiece()};
             }
         }
         return null;
@@ -70,6 +70,7 @@ class Game {
                 break;
             }
         } 
+        console.log(count);
         return count >= 4;
     }
 

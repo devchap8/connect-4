@@ -8,18 +8,9 @@ const singleplayerButton = document.querySelector(".singleplayer-button");
 const twoplayerButton = document.querySelector(".twoplayer-button");
 
 class GameController {
-    #p1
-    #p2
     #game
     constructor() {
-        // this.#p1 = null;
-        // this.#p2 = null;
-        // this.#game = null;
-        this.#p1 = new models.Player("X");
-        this.#p2 = new models.Player("O");
-        this.#game = new engine.Game(this.#p1, this.#p2);
-        // in final build game and players will be null and declared depending on if the
-        // user presses 1p game or 2p game on start screen
+        this.#game = null;
     }
 
     setupEventListeners = () => {
@@ -29,12 +20,10 @@ class GameController {
     }
 
     startGame = (isSingleplayer) => {
-        console.log("start game")
-        // make p1
-        // if isSingleplayer make p2 a bot, else make p2 a player
-        // make the game with the players
-        // change to the game screen
-
+        const p1 = new models.Player("X", true);
+        let p2;
+        isSingleplayer ? p2 = new models.CompPlayer("O", false) : p2 = new models.Player("O", false);
+        this.#game = new engine.Game(p1, p2);
         views.changeScreen("game-screen");
     }
 
@@ -50,6 +39,16 @@ class GameController {
         if(!moveInfo) return;
         const piece = views.makePiece();
         views.placePieceInDom(piece, moveInfo.col, moveInfo.row);
+        if(this.#game.checkWin(moveInfo.row, moveInfo.col)) this.gameWon();
+        // else this.newTurn();
+    }
+
+    newTurn = () => {
+        this.#game.switchCurrPlayer();
+    }
+
+    gameWon = () => {
+        this.#game.getCurrPlayer().getIsPlayer1() ? alert("Player 1 Wins!") : alert("Player 2 Wins!");
     }
 }
 

@@ -32,8 +32,8 @@ const makePiece = () => {
 
 const placePieceInDom = (piece, col, row) => {
     const pieceSlot = document.querySelector(`.piece-slot[data-row="${row}"][data-col="${col}"]`);
-    console.log(pieceSlot);
-    console.log(piece);
+    // console.log(pieceSlot);
+    // console.log(piece);
     pieceSlot.appendChild(piece);
 }
 
