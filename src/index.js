@@ -20,9 +20,9 @@ class GameController {
     }
 
     startGame = (isSingleplayer) => {
-        const p1 = new models.Player("X", true);
+        const p1 = new models.Player("X", true, true);
         let p2;
-        isSingleplayer ? p2 = new models.CompPlayer("O", false) : p2 = new models.Player("O", false);
+        isSingleplayer ? p2 = new models.Player("O", false, false) : p2 = new models.Player("O", false, true);
         this.#game = new engine.Game(p1, p2);
         views.changeScreen("game-screen");
     }
@@ -45,7 +45,8 @@ class GameController {
 
     newTurn = () => {
         this.#game.switchCurrPlayer();
-        if(this.#game.getCurrPlayer().getIsPlayer1()) {
+        console.log(this.#game.getCurrPlayer());
+        if(!this.#game.getCurrPlayer().getIsRealPlayer()) {
             
         }
     }

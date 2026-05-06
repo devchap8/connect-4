@@ -24,30 +24,19 @@ class Gameboard {
 
 class Player {
     #piece;
-    #isRealPlayer;
     #isPlayer1
-    constructor(piece, isPlayer1, isReal = true) {
+    #isRealPlayer;
+    constructor(piece, isPlayer1, isRealPlayer) {
         this.#piece = piece;
         this.#isPlayer1 = isPlayer1;
-        this.#isRealPlayer = isReal;
+        this.#isRealPlayer = isRealPlayer;
     }
     getPiece = () => this.#piece;
     getIsRealPlayer = () => this.#isRealPlayer;
     getIsPlayer1 = () => this.#isPlayer1;
 
-    clone = () => new Player(this.#piece, this.#isRealPlayer);
+    clone = () => new Player(this.#piece, this.#isPlayer1, this.#isRealPlayer);
 }
 
-class CompPlayer extends Player {
-    constructor(piece) {
-        super(piece, false, false);
-    }
-
-    getMoveColumn = () => {
-        // function to get ai move column
-    }
-
-}
-
-const models = {Gameboard, Player, CompPlayer};
+const models = {Gameboard, Player};
 export {models};
