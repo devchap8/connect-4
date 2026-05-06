@@ -37,10 +37,10 @@ class GameController {
         // ai will also use this function after getting its column
         const moveInfo = this.#game.placePiece(column);
         if(!moveInfo) return;
-        const piece = views.makePiece();
+        const piece = views.makePiece(this.#game.getCurrPlayer().getIsPlayer1());
         views.placePieceInDom(piece, moveInfo.col, moveInfo.row);
         if(this.#game.checkWin(moveInfo.row, moveInfo.col)) this.gameWon();
-        // else this.newTurn();
+        else this.newTurn();
     }
 
     newTurn = () => {

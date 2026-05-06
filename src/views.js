@@ -24,9 +24,9 @@ const setupBoard = () => {
     }
 }
 
-const makePiece = () => {
+const makePiece = (isP1) => {
     const piece = document.createElement("div");
-    piece.classList.add("piece");
+    isP1 ? piece.classList.add("piece") : piece.classList.add("p2-piece");
     return piece;
 }
 

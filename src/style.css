@@ -83,11 +83,17 @@ body {
     height: fit-content;
 }
 
-.piece {
+.piece, .p2-piece {
     height: var(--slot-size);
     width: var(--slot-size);
-    background-color: red;
     border-radius: 50%;
+}
+
+.piece {
+    background-color: red;
+}
+.p2-piece {
+    background-color: yellow;
 }
 
 .board-back {
