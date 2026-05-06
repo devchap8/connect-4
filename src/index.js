@@ -17,6 +17,8 @@ class GameController {
         gameContainer.addEventListener("click", this.handleClick);
         singleplayerButtons.forEach(b => b.addEventListener("click", () => this.startGame(true)));
         twoplayerButtons.forEach(b => b.addEventListener("click", () => this.startGame(false)));
+        gameContainer.addEventListener("mouseover", views.highlightSlot);
+        gameContainer.addEventListener("mouseout", views.unhighlightSlot);
     }
 
     startGame = (isSingleplayer) => {

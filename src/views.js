@@ -5,8 +5,8 @@ const startScreen = document.querySelector("#start-screen");
 const gameScreen = document.querySelector("#game-screen");
 const endScreen = document.querySelector("#end-screen");
 const screenList = [startScreen, gameScreen, endScreen];
-const frontSlotList = [];
-const pieceSlotList = [];
+const frontSlotList = [[], [], [], [], [], [], []]; // store them by column for animations
+const pieceSlotList = [[], [], [], [], [], [], []];
 
 const setupBoard = () => {
     board.innerHTML = "";
@@ -18,14 +18,14 @@ const setupBoard = () => {
             slot.setAttribute("data-row", i);
             slot.setAttribute("data-col", j);
             board.appendChild(slot);
-            frontSlotList.push(slot);
+            frontSlotList[j].push(slot);
             // spaces where piece will go, behind the board front
             const pieceSlot = document.createElement("div");
             pieceSlot.classList.add("piece-slot");
             pieceSlot.setAttribute("data-row", i);
             pieceSlot.setAttribute("data-col", j);
             pieceContainer.appendChild(pieceSlot);
-            pieceSlotList.push(pieceSlot);
+            pieceSlotList[j].push(pieceSlot);
         }
     }
 }
@@ -58,10 +58,29 @@ const displayWinner = (isP1) => {
 }
 
 const clearDomPieces = () => {
-    pieceSlotList.forEach(s => s.innerHTML = "");
+    pieceSlotList.forEach(col => col.forEach(s => s.innerHTML = ""));
+}
+
+const highlightSlot = (event) => {
+    if(!event.target.classList.contains("slot")) return;
+    const pieceSlot = getLowestPieceSlot(event);
+    pieceSlot.classList.add("highlighted");
+}
+const unhighlightSlot = (event) => {
+    if(!event.target.classList.contains("slot")) return;
+    const pieceSlot = getLowestPieceSlot(event);
+    pieceSlot.classList.remove("highlighted");
+}
+const getLowestPieceSlot = (event) => {
+    const targetCol = event.target.dataset.col;
+    for(let i = pieceSlotList[targetCol].length - 1; i >= 0; i--) {
+        if(pieceSlotList[targetCol][i].innerHTML === "") {
+            return pieceSlotList[targetCol][i];
+        }
+    }
 }
 
 const views = {setupBoard, makePiece, placePieceInDom, changeScreen, toggleBoardActive,
-    displayWinner, clearDomPieces
+    displayWinner, clearDomPieces, highlightSlot, unhighlightSlot
 };
 export {views};

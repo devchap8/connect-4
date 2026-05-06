@@ -169,3 +169,8 @@ body {
     );
     box-shadow: 0 0 0 calc(var(--slot-gap) / 2) var(--board-color);
 }
+
+.highlighted {
+    background-color: #698aaa;
+    opacity: .5;
+}
