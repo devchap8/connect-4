@@ -45,6 +45,9 @@ class GameController {
 
     newTurn = () => {
         this.#game.switchCurrPlayer();
+        if(this.#game.getCurrPlayer().getIsPlayer1()) {
+            
+        }
     }
 
     gameWon = () => {

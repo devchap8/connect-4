@@ -29,15 +29,19 @@ class Game {
         else this.#currPlayer = this.#p1;
     }
 
-    placePiece = (col) => {
+    isValidMove = (col) => {
         if(col < 0 || col > 6) return null;
+        return this.#board.board[0][col] === ".";
+    }
+
+    placePiece = (col) => {
+        if(!this.isValidMove(col)) return null;
         for(let i = 5; i >= 0; i--) {
             if(this.#board.board[i][col] === ".") {
                 this.#board.update(i, col, this.#currPlayer.getPiece());
                 return {row: +i, col: +col, piece: this.#currPlayer.getPiece()};
             }
         }
-        return null;
     }
 
     checkWin = (row, col) => {
