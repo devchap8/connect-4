@@ -44,41 +44,64 @@ body {
     pointer-events: none;
 }
 
-/* Start Screen */
+/* Start Screen / End Screen */
 
-#start-screen {
-    background-color: var(--menu-bg);
-    height: 500px;
-    width: 600px;
+#start-screen, #end-screen {
+    background-color: rgba(255, 255, 255, .05);
+    backdrop-filter: blur(10px);
+    border: 4px solid var(--board-border-color);
+    height: auto;
+    padding: 60px;
+    width: 700px;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    gap: 40px;
     align-items: center;
-    border-radius: 20px;
+    border-radius: 30px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, .5);
 }
 
-#start-screen > h1 {
-    font-size: 4rem;
-    font-weight: 900;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    color: var(--board-color);
-    text-shadow: 0px 1px 5px white;
+#start-screen > h1,
+#end-screen > h1 {
+    font-size: 5rem;
+    letter-spacing: -2px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #fff;
+    text-shadow: 4px 4px 0px var(--board-color);
+    margin-bottom: 10px;
+}
+
+#end-screen > h3 {
+    font-size: 2rem;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #fff;
+    margin-bottom: 10px;
 }
 
 .start-buttons {
     display: flex;
-    gap: 20px;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
 }
 
 .start-buttons > button {
-    width: 150px;
-    height: 70px;
+    width: 100%;
+    height: 65px;
     border: none;
-    border-radius: 15px;
-    font-size: 1.5rem;
+    border-radius: 12px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
     cursor: pointer;
+    transition: transform .1s, filter .2s;
+    font-family: sans-serif;
 }
 
+.start-buttons > button:hover {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+}
 
 /* GameBoard */
 

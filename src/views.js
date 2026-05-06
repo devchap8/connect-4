@@ -1,8 +1,12 @@
 const board = document.querySelector(".board");
 const pieceContainer = document.querySelector(".piece-container");
+const winnerColor = document.querySelector(".winner-color");
 const startScreen = document.querySelector("#start-screen");
 const gameScreen = document.querySelector("#game-screen");
-const screenList = [startScreen, gameScreen];
+const endScreen = document.querySelector("#end-screen");
+const screenList = [startScreen, gameScreen, endScreen];
+const frontSlotList = [];
+const pieceSlotList = [];
 
 const setupBoard = () => {
     board.innerHTML = "";
@@ -14,12 +18,14 @@ const setupBoard = () => {
             slot.setAttribute("data-row", i);
             slot.setAttribute("data-col", j);
             board.appendChild(slot);
+            frontSlotList.push(slot);
             // spaces where piece will go, behind the board front
             const pieceSlot = document.createElement("div");
             pieceSlot.classList.add("piece-slot");
             pieceSlot.setAttribute("data-row", i);
             pieceSlot.setAttribute("data-col", j);
             pieceContainer.appendChild(pieceSlot);
+            pieceSlotList.push(pieceSlot);
         }
     }
 }
@@ -32,8 +38,6 @@ const makePiece = (isP1) => {
 
 const placePieceInDom = (piece, col, row) => {
     const pieceSlot = document.querySelector(`.piece-slot[data-row="${row}"][data-col="${col}"]`);
-    // console.log(pieceSlot);
-    // console.log(piece);
     pieceSlot.appendChild(piece);
 }
 
@@ -49,5 +53,15 @@ const toggleBoardActive = () => {
         gameScreen.classList.remove("inactive") : gameScreen.classList.add("inactive");
 }
 
-const views = {setupBoard, makePiece, placePieceInDom, changeScreen, toggleBoardActive};
+const displayWinner = (isP1) => {
+    isP1 ? winnerColor.innerHTML = "RED WON!" : winnerColor.innerHTML = "YELLOW WON!";
+}
+
+const clearDomPieces = () => {
+    pieceSlotList.forEach(s => s.innerHTML = "");
+}
+
+const views = {setupBoard, makePiece, placePieceInDom, changeScreen, toggleBoardActive,
+    displayWinner, clearDomPieces
+};
 export {views};

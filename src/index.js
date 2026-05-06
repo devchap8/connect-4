@@ -4,8 +4,8 @@ import { models } from "./models.js";
 import { engine } from "./engine.js";
 
 const gameContainer = document.querySelector(".game-container");
-const singleplayerButton = document.querySelector(".singleplayer-button");
-const twoplayerButton = document.querySelector(".twoplayer-button");
+const singleplayerButtons = Array.from(document.querySelectorAll(".singleplayer-button"));
+const twoplayerButtons = Array.from(document.querySelectorAll(".twoplayer-button"));
 
 class GameController {
     #game
@@ -15,8 +15,8 @@ class GameController {
 
     setupEventListeners = () => {
         gameContainer.addEventListener("click", this.handleClick);
-        singleplayerButton.addEventListener("click", () => this.startGame(true));
-        twoplayerButton.addEventListener("click", () => this.startGame(false));
+        singleplayerButtons.forEach(b => b.addEventListener("click", () => this.startGame(true)));
+        twoplayerButtons.forEach(b => b.addEventListener("click", () => this.startGame(false)));
     }
 
     startGame = (isSingleplayer) => {
@@ -24,6 +24,7 @@ class GameController {
         let p2;
         isSingleplayer ? p2 = new models.Player("O", false, false) : p2 = new models.Player("O", false, true);
         this.#game = new engine.Game(p1, p2);
+        views.clearDomPieces();
         views.changeScreen("game-screen");
     }
 
@@ -61,7 +62,8 @@ class GameController {
     }
 
     gameWon = () => {
-        this.#game.getCurrPlayer().getIsPlayer1() ? alert("Player 1 Wins!") : alert("Player 2 Wins!");
+        views.displayWinner(this.#game.getCurrPlayer().getIsPlayer1())
+        views.changeScreen("end-screen");
     }
 }
 
