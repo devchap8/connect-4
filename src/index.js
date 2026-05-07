@@ -36,18 +36,22 @@ class GameController {
         this.makeMove(column);
     }
 
-    makeMove = (column) => {
+    makeMove = async (column) => {
         const moveInfo = this.#game.placePiece(column);
         if(!moveInfo) return;
         const piece = views.makePiece(this.#game.getCurrPlayer().getIsPlayer1());
+        views.toggleBoardActive();
         views.placePieceInDom(piece, moveInfo.col, moveInfo.row);
-        if(this.#game.checkWin(moveInfo.row, moveInfo.col)) this.gameWon();
-        else this.newTurn();
+        // wait the 750 ms until the animation is done and then make board clickable again
+        await new Promise(() => setTimeout(() => {
+            views.toggleBoardActive();
+            if(this.#game.checkWin(moveInfo.row, moveInfo.col)) this.gameWon();
+            else this.newTurn();
+        }, 750));
     }
 
     newTurn = () => {
         this.#game.switchCurrPlayer();
-        // console.log(this.#game.getCurrPlayer());
         if(!this.#game.getCurrPlayer().getIsRealPlayer()) {
             this.aiTurn();
         }
@@ -59,7 +63,7 @@ class GameController {
         await new Promise(() => setTimeout(() => {
             this.makeMove(randCol);
             views.toggleBoardActive();
-        }, 1000));
+        }, 500));
     }
 
     gameWon = () => {

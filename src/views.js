@@ -40,7 +40,6 @@ const makePiece = (isP1) => {
 
 const changeFloatOffset = (piece, row) => {
     const offset = ((1 + +row) * +floatingOffset) - 50;
-    console.log(row)
     piece.style.setProperty("transform", `translateY(${offset}px)`);
     return piece;
 }
@@ -75,7 +74,11 @@ const displayWinner = (isP1) => {
 }
 
 const clearDomPieces = () => {
-    pieceSlotList.forEach(col => col.forEach(s => s.innerHTML = ""));
+    pieceSlotList.forEach(col => col.forEach(s => {
+        s.innerHTML = "";
+        if(s.classList.contains("highlighted")) s.classList.remove("highlighted");
+    }));
+
 }
 
 const highlightSlot = (event) => {
