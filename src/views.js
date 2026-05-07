@@ -45,10 +45,17 @@ const changeFloatOffset = (piece, row) => {
     return piece;
 }
 
-const placePieceInDom = (piece, col, row) => {
+const dropPieceAnimation = async (piece) => {
+    await new Promise(() => setTimeout(() => {
+        piece.style.setProperty("transform", "translateY(0px)");
+    }, 50));
+}
+
+const placePieceInDom = async (piece, col, row) => {
     const pieceSlot = document.querySelector(`.piece-slot[data-row="${row}"][data-col="${col}"]`);
     piece = changeFloatOffset(piece, row);
     pieceSlot.appendChild(piece);
+    await dropPieceAnimation(piece);
 }
 
 const changeScreen = (screenID) => {
