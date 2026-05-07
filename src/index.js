@@ -37,7 +37,6 @@ class GameController {
     }
 
     makeMove = (column) => {
-        // ai will also use this function after getting its column
         const moveInfo = this.#game.placePiece(column);
         if(!moveInfo) return;
         const piece = views.makePiece(this.#game.getCurrPlayer().getIsPlayer1());
@@ -48,7 +47,7 @@ class GameController {
 
     newTurn = () => {
         this.#game.switchCurrPlayer();
-        console.log(this.#game.getCurrPlayer());
+        // console.log(this.#game.getCurrPlayer());
         if(!this.#game.getCurrPlayer().getIsRealPlayer()) {
             this.aiTurn();
         }

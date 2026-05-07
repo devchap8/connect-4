@@ -83,7 +83,6 @@ class Game {
                 break;
             }
         } 
-        console.log(count);
         return count >= 4;
     }
 

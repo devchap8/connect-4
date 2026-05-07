@@ -7,6 +7,8 @@ const endScreen = document.querySelector("#end-screen");
 const screenList = [startScreen, gameScreen, endScreen];
 const frontSlotList = [[], [], [], [], [], [], []]; // store them by column for animations
 const pieceSlotList = [[], [], [], [], [], [], []];
+const styles = window.getComputedStyle(document.body);
+const floatingOffset = initFloatingOffset();
 
 const setupBoard = () => {
     board.innerHTML = "";
@@ -31,13 +33,21 @@ const setupBoard = () => {
 }
 
 const makePiece = (isP1) => {
-    const piece = document.createElement("div");
+    let piece = document.createElement("div");
     isP1 ? piece.classList.add("piece") : piece.classList.add("p2-piece");
+    return piece;
+}
+
+const changeFloatOffset = (piece, row) => {
+    const offset = ((1 + +row) * +floatingOffset) - 50;
+    console.log(row)
+    piece.style.setProperty("transform", `translateY(${offset}px)`);
     return piece;
 }
 
 const placePieceInDom = (piece, col, row) => {
     const pieceSlot = document.querySelector(`.piece-slot[data-row="${row}"][data-col="${col}"]`);
+    piece = changeFloatOffset(piece, row);
     pieceSlot.appendChild(piece);
 }
 
@@ -78,6 +88,12 @@ const getLowestPieceSlot = (event) => {
             return pieceSlotList[targetCol][i];
         }
     }
+}
+
+function initFloatingOffset() {
+    const slotSize = styles.getPropertyValue("--slot-size").replace("px", "");
+    const slotGap = styles.getPropertyValue("--slot-gap").replace("px", "");
+    return (-1 * (+slotGap + +slotSize));
 }
 
 const views = {setupBoard, makePiece, placePieceInDom, changeScreen, toggleBoardActive,
